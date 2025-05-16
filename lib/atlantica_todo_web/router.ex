@@ -17,7 +17,7 @@ defmodule AtlanticaTodoWeb.Router do
   scope "/", AtlanticaTodoWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", TodoLive.Index, :index
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-8 text-center">My Tasks</h1>
+
+      <.form for={%{}} phx-submit="save" class="mb-8 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="title">
+            What needs to be done?
+          </label>
+          <input type="text" name="todo[title]" id="title" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
+            placeholder="Enter task title..." />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="description">
+            Description (optional)
+          </label>
+          <textarea name="todo[description]" id="description"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
+            placeholder="Add some details..."
+            rows="3"></textarea>
+        </div>
+
+        <button type="submit"
+          class="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+          Add Task
+        </button>
+      </.form>
+
+      <div class="space-y-3">
+        <%= for todo <- @todos do %>
+          <div class="bg-gray-50 rounded-xl p-4 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-start space-x-4">
+              <button phx-click="toggle" phx-value-id={todo.id}
+                class={"mt-1 flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center #{if todo.completed, do: "bg-green-500 border-green-500", else: "border-gray-400"}"}>
+                <%= if todo.completed do %>
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                <% end %>
+              </button>
+              
+              <div class="flex-grow min-w-0">
+                <div class={"#{if todo.completed, do: "line-through text-gray-500", else: "text-gray-900"}"}>
+                  <h3 class="text-lg font-medium"><%= todo.title %></h3>
+                  <%= if todo.description do %>
+                    <p class="mt-1 text-gray-600"><%= todo.description %></p>
+                  <% end %>
+                </div>
+              </div>
+
+              <button phx-click="delete" phx-value-id={todo.id}
+                class="flex-shrink-0 text-gray-400 hover:text-red-500 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 
