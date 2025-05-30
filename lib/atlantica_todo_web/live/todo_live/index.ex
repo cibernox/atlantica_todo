@@ -6,7 +6,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, todos: list_todos(), todo: %Todo{}, form: to_form(Todo.changeset(%Todo{}, %{})))}
+    {:ok, assign(socket, todos: list_todos(), todo: %Todo{}, form: to_form(Todo.changeset(%Todo{}, %{})), show_dialog: false)}
   end
 
   @impl true
@@ -42,6 +42,22 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
     {:noreply, assign(socket, :todos, list_todos())}
   end
 
+  @impl true
+  def handle_event("open_dialog", _, socket) do
+    {:noreply,
+     socket
+     |> assign(:show_dialog, true)
+     |> push_event("show_dialog", %{})}
+  end
+
+  @impl true
+  def handle_event("close_dialog", _, socket) do
+    {:noreply,
+     socket
+     |> assign(:show_dialog, false)
+     |> push_event("close_dialog", %{})}
+  end
+
   defp save_todo(socket, :index, todo_params) do
     case Repo.insert(Todo.changeset(%Todo{}, todo_params)) do
       {:ok, _todo} ->
@@ -49,7 +65,9 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
          socket
          |> put_flash(:info, "Todo created successfully")
          |> assign(:todos, list_todos())
-         |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))}
+         |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
+         |> assign(:show_dialog, false)
+         |> push_event("close_dialog", %{})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :form, to_form(changeset))}
