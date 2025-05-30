@@ -2,10 +2,11 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   use AtlanticaTodoWeb, :live_view
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
+  import Phoenix.HTML.FormData
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, todos: list_todos(), todo: %Todo{})}
+    {:ok, assign(socket, todos: list_todos(), todo: %Todo{}, form: to_form(Todo.changeset(%Todo{}, %{})))}
   end
 
   @impl true
@@ -17,6 +18,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
     socket
     |> assign(:page_title, "Todo List")
     |> assign(:todo, %Todo{})
+    |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
   end
 
   @impl true
@@ -46,10 +48,11 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
         {:noreply,
          socket
          |> put_flash(:info, "Todo created successfully")
-         |> assign(:todos, list_todos())}
+         |> assign(:todos, list_todos())
+         |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
+        {:noreply, assign(socket, :form, to_form(changeset))}
     end
   end
 

@@ -14,5 +14,6 @@ defmodule AtlanticaTodo.Todos.Todo do
     todo
     |> cast(attrs, [:title, :description, :completed])
     |> validate_required([:title])
+    |> validate_length(:title, min: 3)
   end
 end
