@@ -225,7 +225,7 @@ defmodule AtlanticaTodoWeb.CoreComponents do
     ~H"""
     <fieldset class="fieldset mb-2">
       <label>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label mb-1 text-sm font-medium text-gray-700">{@label}</span>
         <textarea
           id={@id}
           name={@name}
@@ -246,7 +246,7 @@ defmodule AtlanticaTodoWeb.CoreComponents do
     ~H"""
     <fieldset class="fieldset mb-2">
       <label>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label mb-1 text-sm font-medium text-gray-700">{@label}</span>
         <input
           type={@type}
           name={@name}

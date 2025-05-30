@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-gray-50 py-8">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-8 text-center">My Tasks</h1>
+      <h1 class="text-4xl font-bold mb-8 text-center">My Tasks</h1>
 
       <div class="space-y-3">
         <%= for todo <- @todos do %>
@@ -57,9 +57,9 @@
 
     <!-- Modal panel -->
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+      <div class="relative transform text-gray-900 overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
         <div class="flex justify-between items-start mb-4">
-          <h3 class="text-2xl font-semibold text-gray-900">New Task</h3>
+          <h3 class="text-2xl font-semibold">New Task</h3>
           <button type="button" phx-click="close_dialog" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md">
             <span class="sr-only">Close</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -70,16 +70,16 @@
         
         <div class="mt-4">
           <.form for={@form} phx-submit="save" phx-change="validate" class="space-y-4">
-            <.input field={@form[:title]} type="text" required
+            <.input field={@form[:title]} type="text" required label="Title"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
               placeholder="Enter task title..." />
-            <.input field={@form[:description]} type="textarea"
+            <.input field={@form[:description]} type="textarea" label="Description (optional)"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
               placeholder="Add some details..."
               rows="3" />
 
             <div>
-              <label class="block text-sm font-medium text-gray-700">Image</label>
+              <label class="block text-sm font-medium text-gray-700">Image (optional)</label>
               <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div class="space-y-1 text-center">
                   <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
