@@ -19,9 +19,14 @@
               <div class="flex-grow min-w-0">
                 <div class={"#{if todo.completed, do: "line-through text-gray-500", else: "text-gray-900"}"}>
                   <h3 class="text-lg font-medium"><%= todo.title %></h3>
-                  <%= if todo.description do %>
-                    <p class="mt-1 text-gray-600"><%= todo.description %></p>
-                  <% end %>
+                  <div class="flex items-start space-x-4 mt-2">
+                    <%= if todo.image do %>
+                      <img src={todo.image} class="w-16 h-16 object-cover rounded-lg" />
+                    <% end %>
+                    <%= if todo.description do %>
+                      <p class="text-gray-600"><%= todo.description %></p>
+                    <% end %>
+                  </div>
                 </div>
               </div>
 
@@ -45,51 +50,79 @@
     </svg>
   </button>
 
-  <!-- Native Dialog -->
-  <dialog :if={@show_dialog} id="todo-dialog" phx-hook="Dialog" class="backdrop:bg-gray-500/50 p-0 rounded-lg shadow-xl max-w-lg w-full m-auto bg-white">
-    <div class="p-6">
-      <div class="flex justify-between items-start mb-4">
-        <h3 class="text-2xl font-semibold text-gray-900">New Task</h3>
-        <button type="button" phx-click="close_dialog" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md">
-          <span class="sr-only">Close</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+  <!-- Modal -->
+  <div :if={@show_dialog} class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 bg-gray-500/50 transition-opacity" aria-hidden="true"></div>
+
+    <!-- Modal panel -->
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+        <div class="flex justify-between items-start mb-4">
+          <h3 class="text-2xl font-semibold text-gray-900">New Task</h3>
+          <button type="button" phx-click="close_dialog" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md">
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div class="mt-4">
+          <.form for={@form} phx-submit="save" phx-change="validate" class="space-y-4">
+            <.input field={@form[:title]} type="text" required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
+              placeholder="Enter task title..." />
+            <.input field={@form[:description]} type="textarea"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
+              placeholder="Add some details..."
+              rows="3" />
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Image</label>
+              <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div class="space-y-1 text-center">
+                  <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <div class="flex text-sm text-gray-600">
+                    <.live_file_input upload={@uploads.image} />
+
+                    <%!-- <label for="image-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                      <span>Upload a file</span>
+                      <.live_file_input upload={@uploads.image} />
+                    </label>
+                    <p class="pl-1">or drag and drop</p> --%>
+                  </div>
+                  <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <%= for entry <- @uploads.image.entries do %>
+                <div class="flex items-center space-x-2">
+                  <div class="text-sm text-gray-600">
+                    <%= entry.client_name %>
+                  </div>
+                  <button type="button" phx-click="cancel-upload" phx-value-ref={entry.ref} class="text-red-600 hover:text-red-800">
+                    Remove
+                  </button>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="flex justify-end space-x-3">
+              <button type="button" phx-click="close_dialog" class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Cancel
+              </button>
+              <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Save
+              </button>
+            </div>
+          </.form>
+        </div>
       </div>
-      
-      <.form for={@form} phx-submit="save" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1" for="title">
-            What needs to be done?
-          </label>
-          <.input field={@form[:title]} type="text" required
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
-            placeholder="Enter task title..." />
-          <span :for={msg <- Keyword.get_values(@form[:title].errors, :title)} class="text-red-500 text-sm">
-            <%= msg %>
-          </span>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1" for="description">
-            Description (optional)
-          </label>
-          <.input field={@form[:description]} type="textarea"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
-            placeholder="Add some details..."
-            rows="3" />
-        </div>
-
-        <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-          <button type="submit" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">
-            Add Task
-          </button>
-          <button type="button" phx-click="close_dialog" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
-            Cancel
-          </button>
-        </div>
-      </.form>
     </div>
-  </dialog>
+  </div>
 </div> 

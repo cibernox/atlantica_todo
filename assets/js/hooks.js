@@ -1,15 +1,5 @@
 const Hooks = {
-  Dialog: {
-    mounted() {
-      this.handleEvent("show_dialog", () => {
-        this.el.showModal();
-      });
-
-      this.handleEvent("close_dialog", () => {
-        this.el.close();
-      });
-    }
-  }
+  // Dialog hook removed as we're using a div-based modal now
 };
 
 export default Hooks; 

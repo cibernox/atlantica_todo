@@ -230,7 +230,7 @@ defmodule AtlanticaTodoWeb.CoreComponents do
           id={@id}
           name={@name}
           class={[
-            @class || "w-full textarea",
+            @class || "w-full textarea bg-white",
             @errors != [] && (@error_class || "textarea-error")
           ]}
           {@rest}
@@ -253,7 +253,7 @@ defmodule AtlanticaTodoWeb.CoreComponents do
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class || "w-full input",
+            @class || "w-full input bg-white",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}

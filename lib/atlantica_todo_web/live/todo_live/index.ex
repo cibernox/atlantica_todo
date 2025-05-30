@@ -6,7 +6,12 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, todos: list_todos(), todo: %Todo{}, form: to_form(Todo.changeset(%Todo{}, %{})), show_dialog: false)}
+    {:ok,
+     socket
+     |> assign(:todos, list_todos())
+     |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
+     |> assign(:show_dialog, false)
+     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)}
   end
 
   @impl true
@@ -17,7 +22,6 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Todo List")
-    |> assign(:todo, %Todo{})
     |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
   end
 
@@ -46,19 +50,41 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   def handle_event("open_dialog", _, socket) do
     {:noreply,
      socket
-     |> assign(:show_dialog, true)
-     |> push_event("show_dialog", %{})}
+     |> assign(:show_dialog, true)}
   end
 
   @impl true
   def handle_event("close_dialog", _, socket) do
     {:noreply,
      socket
-     |> assign(:show_dialog, false)
-     |> push_event("close_dialog", %{})}
+     |> assign(:show_dialog, false)}
+  end
+
+  @impl true
+  def handle_event("validate", _params, socket) do
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :image, ref)}
   end
 
   defp save_todo(socket, :index, todo_params) do
+    image_path =
+      consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
+        uploads_dir = Path.join(["priv", "static", "uploads"])
+        File.mkdir_p!(uploads_dir)
+        extension = Path.extname(entry.client_name)
+        filename = "#{entry.uuid}#{extension}"
+        dest = Path.join(uploads_dir, filename)
+        File.cp!(path, dest)
+        {:ok, "/uploads/#{filename}"}
+      end)
+      |> List.first()
+
+    todo_params = Map.put(todo_params, "image", image_path)
+
     case Repo.insert(Todo.changeset(%Todo{}, todo_params)) do
       {:ok, _todo} ->
         {:noreply,
@@ -70,7 +96,9 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
          |> push_event("close_dialog", %{})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :form, to_form(changeset))}
+        {:noreply,
+         socket
+         |> assign(:form, to_form(changeset))}
     end
   end
 
