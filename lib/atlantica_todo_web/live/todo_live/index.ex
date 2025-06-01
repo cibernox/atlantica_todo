@@ -3,6 +3,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
   import Phoenix.HTML.FormData
+  require Logger
 
   @impl true
   def mount(_params, _session, socket) do
@@ -11,7 +12,21 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
      |> assign(:todos, list_todos())
      |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
      |> assign(:show_dialog, false)
-     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)}
+     |> allow_upload(:image,
+
+       accept: ~w(.jpg .jpeg .png),
+       max_entries: 1,
+       on_upload: fn entry ->
+         Logger.info("#### on_upload called for entry: #{inspect(entry)}")
+         if entry.done? do
+           uploads_dir = Path.join([:code.priv_dir(:atlantica_todo), "static", "uploads"])
+           File.mkdir_p!(uploads_dir)
+           dest = Path.join(uploads_dir, entry.ref)
+           Logger.info("#### copying file to: #{dest}")
+           File.cp!(entry.path, dest)
+         end
+       end
+     )}
   end
 
   @impl true
@@ -63,6 +78,17 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   @impl true
   def handle_event("validate", _params, socket) do
     {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("upload", _params, socket) do
+    Logger.info("#### upload image!! #{inspect(socket.assigns.uploads)}")
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("preview", %{"ref" => ref}, socket) do
+    {:noreply, assign(socket, :preview_ref, ref)}
   end
 
   @impl true
