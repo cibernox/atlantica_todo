@@ -17,12 +17,10 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
        on_upload: fn entry ->
-         Logger.info("#### on_upload called for entry: #{inspect(entry)}")
          if entry.done? do
            uploads_dir = Path.join([:code.priv_dir(:atlantica_todo), "static", "uploads"])
            File.mkdir_p!(uploads_dir)
            dest = Path.join(uploads_dir, entry.ref)
-           Logger.info("#### copying file to: #{dest}")
            File.cp!(entry.path, dest)
          end
        end
@@ -82,7 +80,6 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
 
   @impl true
   def handle_event("upload", _params, socket) do
-    Logger.info("#### upload image!! #{inspect(socket.assigns.uploads)}")
     {:noreply, socket}
   end
 
