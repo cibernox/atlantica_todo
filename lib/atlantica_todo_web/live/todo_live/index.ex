@@ -12,8 +12,8 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
      |> assign(:todos, list_todos())
      |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
      |> assign(:show_dialog, false)
+     |> assign(:image_modal_url, nil)
      |> allow_upload(:image,
-
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
        on_upload: fn entry ->
@@ -94,6 +94,16 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   @impl true
   def handle_event("cancel-upload", %{"ref" => ref}, socket) do
     {:noreply, cancel_upload(socket, :image, ref)}
+  end
+
+  @impl true
+  def handle_event("open_image_modal", %{"url" => url}, socket) do
+    {:noreply, assign(socket, :image_modal_url, url)}
+  end
+
+  @impl true
+  def handle_event("close_image_modal", _params, socket) do
+    {:noreply, assign(socket, :image_modal_url, nil)}
   end
 
   defp save_todo(socket, :index, todo_params) do
