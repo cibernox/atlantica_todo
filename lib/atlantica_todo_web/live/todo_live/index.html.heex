@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-gray-50 py-8">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-      <h1 class="text-4xl font-bold mb-8 text-center">My Tasks</h1>
+      <h1 class="text-4xl font-bold mb-8 text-center text-gray-900">My Tasks</h1>
 
       <div class="space-y-3">
         <%= for todo <- @todos do %>
@@ -21,7 +21,7 @@
                   <h3 class="text-lg font-medium"><%= todo.title %></h3>
                   <div class="flex items-start space-x-4 mt-2">
                     <%= if todo.image do %>
-                      <img src={todo.image} class="w-16 h-16 object-cover rounded-lg cursor-pointer" phx-click="open_image_modal" phx-value-url={todo.image} />
+                      <img src={todo.image} class="w-16 h-16 object-cover rounded-lg cursor-pointer" phx-click="open_image_detail" phx-value-url={todo.image} />
                     <% end %>
                     <%= if todo.description do %>
                       <p class="text-gray-600"><%= todo.description %></p>
@@ -44,7 +44,7 @@
   </div>
 
   <!-- Floating Action Button -->
-  <button phx-click="open_dialog" class="fixed bottom-8 right-8 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center">
+  <button phx-click="open_form" class="fixed bottom-8 right-8 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
     </svg>
@@ -60,7 +60,7 @@
       <div class="relative transform text-gray-900 overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
         <div class="flex justify-between items-start mb-4">
           <h3 class="text-2xl font-semibold">New Task</h3>
-          <button type="button" phx-click="close_dialog" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md">
+          <button type="button" phx-click="close_form" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md">
             <span class="sr-only">Close</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -111,7 +111,7 @@
             </div>
 
             <div class="flex justify-end space-x-3">
-              <button type="button" phx-click="close_dialog" class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <button type="button" phx-click="close_form" class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 Cancel
               </button>
               <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -125,14 +125,12 @@
   </div>
 
   <!-- Image Modal -->
-  <div :if={@image_modal_url} class="fixed inset-0 z-50 flex items-center justify-center" phx-click="close_image_modal">
+  <div :if={@image_modal_url} class="fixed inset-0 z-50 flex items-center justify-center">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/30" phx-click="close_image_detail"></div>
+    <!-- Modal content -->
     <div class="relative max-w-3xl w-full flex items-center justify-center">
       <img src={@image_modal_url} class="max-h-[80vh] max-w-full rounded-lg shadow-2xl border-4 border-white" />
-      <button type="button" phx-click="close_image_modal" class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg focus:outline-none" aria-label="Close">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
     </div>
   </div>
 </div>

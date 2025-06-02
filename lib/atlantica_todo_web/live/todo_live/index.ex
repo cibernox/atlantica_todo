@@ -2,8 +2,6 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   use AtlanticaTodoWeb, :live_view
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
-  import Phoenix.HTML.FormData
-  require Logger
 
   @impl true
   def mount(_params, _session, socket) do
@@ -60,14 +58,14 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   end
 
   @impl true
-  def handle_event("open_dialog", _, socket) do
+  def handle_event("open_form", _, socket) do
     {:noreply,
      socket
      |> assign(:show_dialog, true)}
   end
 
   @impl true
-  def handle_event("close_dialog", _, socket) do
+  def handle_event("close_form", _, socket) do
     {:noreply,
      socket
      |> assign(:show_dialog, false)}
@@ -94,14 +92,17 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   end
 
   @impl true
-  def handle_event("open_image_modal", %{"url" => url}, socket) do
+  def handle_event("open_image_detail", %{"url" => url}, socket) do
     {:noreply, assign(socket, :image_modal_url, url)}
   end
 
   @impl true
-  def handle_event("close_image_modal", _params, socket) do
+  def handle_event("close_image_detail", _params, socket) do
     {:noreply, assign(socket, :image_modal_url, nil)}
   end
+
+  @impl true
+  def handle_event("noop", _, socket), do: {:noreply, socket}
 
   defp save_todo(socket, :index, todo_params) do
     image_path =
@@ -126,7 +127,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
          |> assign(:todos, list_todos())
          |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
          |> assign(:show_dialog, false)
-         |> push_event("close_dialog", %{})}
+         |> push_event("close_form", %{})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply,
