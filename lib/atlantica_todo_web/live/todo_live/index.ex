@@ -9,7 +9,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
      socket
      |> assign(:todos, list_todos())
      |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
-     |> assign(:show_dialog, false)
+     |> assign(:show_form, false)
      |> assign(:image_modal_url, nil)
      |> allow_upload(:image,
        accept: ~w(.jpg .jpeg .png),
@@ -61,14 +61,14 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   def handle_event("open_form", _, socket) do
     {:noreply,
      socket
-     |> assign(:show_dialog, true)}
+     |> assign(:show_form, true)}
   end
 
   @impl true
   def handle_event("close_form", _, socket) do
     {:noreply,
      socket
-     |> assign(:show_dialog, false)}
+     |> assign(:show_form, false)}
   end
 
   @impl true
@@ -126,7 +126,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
          |> put_flash(:info, "Todo created successfully")
          |> assign(:todos, list_todos())
          |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
-         |> assign(:show_dialog, false)
+         |> assign(:show_form, false)
          |> push_event("close_form", %{})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
