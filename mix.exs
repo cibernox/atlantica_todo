@@ -59,7 +59,11 @@ defmodule AtlanticaTodo.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:tidewave, "~> 0.1", only: :dev}
+      {:tidewave, "~> 0.1", only: :dev},
+      {:live_view_native, "~> 0.4.0-rc.1"},
+      {:live_view_native_stylesheet, "~> 0.4.0-rc.1"},
+      {:live_view_native_swiftui, "~> 0.4.0-rc.1"},
+      {:live_view_native_live_form, "~> 0.4.0-rc.1"}
     ]
   end
 

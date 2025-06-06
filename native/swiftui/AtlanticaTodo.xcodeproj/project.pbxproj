@@ -1,0 +1,516 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A69BAD8CFD702E6F105C4A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518F49CB7809D60C727C9EB5 /* Assets.xcassets */; };
+		0F41718D0EE2830616169B2C /* AtlanticaTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10B3CAF805CE78B42221B4D /* AtlanticaTodo.swift */; };
+		1033FF934A9FF50E9F4BEF1F /* ReconnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A19CADABB249E6555BAF06 /* ReconnectingView.swift */; };
+		161C1703FED785FC18CAE21F /* LiveViewNativeLiveForm in Frameworks */ = {isa = PBXBuildFile; productRef = 938A1677680BB1C0DE7EACB4 /* LiveViewNativeLiveForm */; };
+		4375BC294AA8EC439E517B1A /* DisconnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEE4F5A835F012F59398FAD /* DisconnectedView.swift */; };
+		43DC3F7C9617C63938B15D53 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1CA91BA0E8D905B663005 /* ContentView.swift */; };
+		56854E8B37D30A36921EA67C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518F49CB7809D60C727C9EB5 /* Assets.xcassets */; };
+		5BBCD3BDB215689069762288 /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DEE980DE6DA4E739C7C30 /* ConnectingView.swift */; };
+		6963FFCCF939EAA98C89A450 /* AtlanticaTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10B3CAF805CE78B42221B4D /* AtlanticaTodo.swift */; };
+		7DC9B64FA7E89919467D7082 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9342EB7690BC975D539F5007 /* Preview Assets.xcassets */; };
+		7EABC1B0EEA6C8C378068986 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD32F051706F6695388FD8F7 /* ErrorView.swift */; };
+		862277662AA432F46F3E43BB /* LiveViewNativeLiveForm in Frameworks */ = {isa = PBXBuildFile; productRef = 0081CE01E19236B830C465BE /* LiveViewNativeLiveForm */; };
+		9CD1B3794503AE1705A0EB13 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9342EB7690BC975D539F5007 /* Preview Assets.xcassets */; };
+		AF8EA13EA873EB1DEA9CF615 /* LiveViewNative in Frameworks */ = {isa = PBXBuildFile; productRef = A1520A4CBEC710EC0893F6ED /* LiveViewNative */; };
+		CEA8B764FF0BEEED60495D45 /* LiveViewNative in Frameworks */ = {isa = PBXBuildFile; productRef = 86ECE56D133E1750DFE20332 /* LiveViewNative */; };
+		E09E24F41820668D7D4332C4 /* DisconnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEE4F5A835F012F59398FAD /* DisconnectedView.swift */; };
+		E5C627F2EB0ECA89DD0DA725 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD32F051706F6695388FD8F7 /* ErrorView.swift */; };
+		E7F2EBADA4CBAF9E835F265A /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DEE980DE6DA4E739C7C30 /* ConnectingView.swift */; };
+		EF5B5232CFF856E410AA4D69 /* ReconnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A19CADABB249E6555BAF06 /* ReconnectingView.swift */; };
+		FB58420523A3B4CDBD560D36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1CA91BA0E8D905B663005 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3030FF23E034AD5FA1B251B2 /* AtlanticaTodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtlanticaTodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36A1CA91BA0E8D905B663005 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		451DEE980DE6DA4E739C7C30 /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
+		518F49CB7809D60C727C9EB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		51A19CADABB249E6555BAF06 /* ReconnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectingView.swift; sourceTree = "<group>"; };
+		6CEE4F5A835F012F59398FAD /* DisconnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectedView.swift; sourceTree = "<group>"; };
+		77BB9381C6714F70A9CA472F /* AtlanticaTodo Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AtlanticaTodo Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9342EB7690BC975D539F5007 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AD32F051706F6695388FD8F7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		C10B3CAF805CE78B42221B4D /* AtlanticaTodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlanticaTodo.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6588E0CA52B8D68BD175C98E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA8B764FF0BEEED60495D45 /* LiveViewNative in Frameworks */,
+				161C1703FED785FC18CAE21F /* LiveViewNativeLiveForm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CD4FD067C994025DAA8F26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF8EA13EA873EB1DEA9CF615 /* LiveViewNative in Frameworks */,
+				862277662AA432F46F3E43BB /* LiveViewNativeLiveForm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06258AE8576EBE3646ED6F5B /* AtlanticaTodo */ = {
+			isa = PBXGroup;
+			children = (
+				BDBA3F72814DDAE57B274C13 /* Preview Content */,
+				518F49CB7809D60C727C9EB5 /* Assets.xcassets */,
+				C10B3CAF805CE78B42221B4D /* AtlanticaTodo.swift */,
+				451DEE980DE6DA4E739C7C30 /* ConnectingView.swift */,
+				36A1CA91BA0E8D905B663005 /* ContentView.swift */,
+				6CEE4F5A835F012F59398FAD /* DisconnectedView.swift */,
+				AD32F051706F6695388FD8F7 /* ErrorView.swift */,
+				51A19CADABB249E6555BAF06 /* ReconnectingView.swift */,
+			);
+			path = AtlanticaTodo;
+			sourceTree = "<group>";
+		};
+		9B8163E1A0C2B0AFC37099E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77BB9381C6714F70A9CA472F /* AtlanticaTodo Watch App.app */,
+				3030FF23E034AD5FA1B251B2 /* AtlanticaTodo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B74158726F71054487DC15B3 = {
+			isa = PBXGroup;
+			children = (
+				06258AE8576EBE3646ED6F5B /* AtlanticaTodo */,
+				9B8163E1A0C2B0AFC37099E2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BDBA3F72814DDAE57B274C13 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9342EB7690BC975D539F5007 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		495E97B82F4787B2999201C7 /* AtlanticaTodo Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F32C5989B9D0621D2B97956 /* Build configuration list for PBXNativeTarget "AtlanticaTodo Watch App" */;
+			buildPhases = (
+				29DE7450B23384DE53AB70E4 /* Sources */,
+				30B2E4AD477BEA008DF7D77C /* Resources */,
+				85CD4FD067C994025DAA8F26 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AtlanticaTodo Watch App";
+			packageProductDependencies = (
+				A1520A4CBEC710EC0893F6ED /* LiveViewNative */,
+				0081CE01E19236B830C465BE /* LiveViewNativeLiveForm */,
+			);
+			productName = "AtlanticaTodo Watch App";
+			productReference = 77BB9381C6714F70A9CA472F /* AtlanticaTodo Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5E5CD4BBD27BE272AC67AC24 /* AtlanticaTodo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F712658DE711849B109294F7 /* Build configuration list for PBXNativeTarget "AtlanticaTodo" */;
+			buildPhases = (
+				BC5FD737D3104CFE72046F06 /* Sources */,
+				87FB3C07F752AA3B22C14379 /* Resources */,
+				6588E0CA52B8D68BD175C98E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtlanticaTodo;
+			packageProductDependencies = (
+				86ECE56D133E1750DFE20332 /* LiveViewNative */,
+				938A1677680BB1C0DE7EACB4 /* LiveViewNativeLiveForm */,
+			);
+			productName = AtlanticaTodo;
+			productReference = 3030FF23E034AD5FA1B251B2 /* AtlanticaTodo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9E887E760B39CE7F76F08AA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = 52CA5F28FE2F90803155B772 /* Build configuration list for PBXProject "AtlanticaTodo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B74158726F71054487DC15B3;
+			packageReferences = (
+				388D8D6C51C48D29D609BA22 /* XCRemoteSwiftPackageReference "liveview-client-swiftui" */,
+				E3C28BD5ADA5A54CEC53E90B /* XCRemoteSwiftPackageReference "liveview-native-live-form" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5E5CD4BBD27BE272AC67AC24 /* AtlanticaTodo */,
+				495E97B82F4787B2999201C7 /* AtlanticaTodo Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30B2E4AD477BEA008DF7D77C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A69BAD8CFD702E6F105C4A0 /* Assets.xcassets in Resources */,
+				9CD1B3794503AE1705A0EB13 /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87FB3C07F752AA3B22C14379 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56854E8B37D30A36921EA67C /* Assets.xcassets in Resources */,
+				7DC9B64FA7E89919467D7082 /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29DE7450B23384DE53AB70E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F41718D0EE2830616169B2C /* AtlanticaTodo.swift in Sources */,
+				5BBCD3BDB215689069762288 /* ConnectingView.swift in Sources */,
+				FB58420523A3B4CDBD560D36 /* ContentView.swift in Sources */,
+				E09E24F41820668D7D4332C4 /* DisconnectedView.swift in Sources */,
+				E5C627F2EB0ECA89DD0DA725 /* ErrorView.swift in Sources */,
+				EF5B5232CFF856E410AA4D69 /* ReconnectingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC5FD737D3104CFE72046F06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6963FFCCF939EAA98C89A450 /* AtlanticaTodo.swift in Sources */,
+				E7F2EBADA4CBAF9E835F265A /* ConnectingView.swift in Sources */,
+				43DC3F7C9617C63938B15D53 /* ContentView.swift in Sources */,
+				4375BC294AA8EC439E517B1A /* DisconnectedView.swift in Sources */,
+				7EABC1B0EEA6C8C378068986 /* ErrorView.swift in Sources */,
+				1033FF934A9FF50E9F4BEF1F /* ReconnectingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		36FC2598E316324B26256ED9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AtlanticaTodo;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.example.AtlanticaTodo;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = 16.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		578EA43E0966697CFB888CAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = X82GZ7HCGZ;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AtlanticaTodo;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator appletvos appletvsimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
+			};
+			name = Release;
+		};
+		884560868D68D2AA4E6D3AE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				DEVELOPMENT_TEAM = X82GZ7HCGZ;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AtlanticaTodo;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator appletvos appletvsimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
+			};
+			name = Debug;
+		};
+		B17FC6EEBE8AE850A7095752 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AtlanticaTodo.watchkit;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		B707F1E83A724CE898AA9C8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AtlanticaTodo.watchkit;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+		C1DCA6809E2FA10AECEF497B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AtlanticaTodo;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.example.AtlanticaTodo;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = 16.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		52CA5F28FE2F90803155B772 /* Build configuration list for PBXProject "AtlanticaTodo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36FC2598E316324B26256ED9 /* Debug */,
+				C1DCA6809E2FA10AECEF497B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9F32C5989B9D0621D2B97956 /* Build configuration list for PBXNativeTarget "AtlanticaTodo Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B17FC6EEBE8AE850A7095752 /* Debug */,
+				B707F1E83A724CE898AA9C8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F712658DE711849B109294F7 /* Build configuration list for PBXNativeTarget "AtlanticaTodo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				884560868D68D2AA4E6D3AE7 /* Debug */,
+				578EA43E0966697CFB888CAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		388D8D6C51C48D29D609BA22 /* XCRemoteSwiftPackageReference "liveview-client-swiftui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/liveview-native/liveview-client-swiftui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "0.4.0-rc.1";
+			};
+		};
+		E3C28BD5ADA5A54CEC53E90B /* XCRemoteSwiftPackageReference "liveview-native-live-form" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/liveview-native/liveview-native-live-form";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "0.4.0-rc.1";
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0081CE01E19236B830C465BE /* LiveViewNativeLiveForm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3C28BD5ADA5A54CEC53E90B /* XCRemoteSwiftPackageReference "liveview-native-live-form" */;
+			productName = LiveViewNativeLiveForm;
+		};
+		86ECE56D133E1750DFE20332 /* LiveViewNative */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 388D8D6C51C48D29D609BA22 /* XCRemoteSwiftPackageReference "liveview-client-swiftui" */;
+			productName = LiveViewNative;
+		};
+		938A1677680BB1C0DE7EACB4 /* LiveViewNativeLiveForm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3C28BD5ADA5A54CEC53E90B /* XCRemoteSwiftPackageReference "liveview-native-live-form" */;
+			productName = LiveViewNativeLiveForm;
+		};
+		A1520A4CBEC710EC0893F6ED /* LiveViewNative */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 388D8D6C51C48D29D609BA22 /* XCRemoteSwiftPackageReference "liveview-client-swiftui" */;
+			productName = LiveViewNative;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D9E887E760B39CE7F76F08AA /* Project object */;
+}
