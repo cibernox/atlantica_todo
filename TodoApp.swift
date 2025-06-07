@@ -86,7 +86,7 @@ struct TodoItemView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(todo.title)
                     .font(.headline)
-                    .strikethrough(todo.completed)
+                    .strikethrough(todo.completed ? true : false)
                     .foregroundColor(todo.completed ? .gray : .primary)
                 
                 if let description = todo.description {
