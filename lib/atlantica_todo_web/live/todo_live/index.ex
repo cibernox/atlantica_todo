@@ -1,5 +1,6 @@
 defmodule AtlanticaTodoWeb.TodoLive.Index do
   use AtlanticaTodoWeb, :live_view
+  use AtlanticaTodoNative, :live_view
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
 
