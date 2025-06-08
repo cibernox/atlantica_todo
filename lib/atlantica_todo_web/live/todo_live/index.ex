@@ -4,8 +4,14 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
 
+  @topic "todos"
+
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(AtlanticaTodo.PubSub, @topic)
+    end
+
     {:ok,
      socket
      |> assign(:todos, list_todos())
@@ -47,13 +53,25 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
     todo = Repo.get!(Todo, id)
     {:ok, _} = Repo.delete(todo)
 
+    Phoenix.PubSub.broadcast(
+      AtlanticaTodo.PubSub,
+      @topic,
+      {:todo_deleted, id}
+    )
+
     {:noreply, assign(socket, :todos, list_todos())}
   end
 
   @impl true
   def handle_event("toggle", %{"id" => id}, socket) do
     todo = Repo.get!(Todo, id)
-    {:ok, _updated_todo} = Repo.update(Ecto.Changeset.change(todo, completed: !todo.completed))
+    {:ok, updated_todo} = Repo.update(Ecto.Changeset.change(todo, completed: !todo.completed))
+
+    Phoenix.PubSub.broadcast(
+      AtlanticaTodo.PubSub,
+      @topic,
+      {:todo_updated, updated_todo}
+    )
 
     {:noreply, assign(socket, :todos, list_todos())}
   end
@@ -105,6 +123,21 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   @impl true
   def handle_event("noop", _, socket), do: {:noreply, socket}
 
+  @impl true
+  def handle_info({:todo_created, todo}, socket) do
+    {:noreply, assign(socket, :todos, list_todos())}
+  end
+
+  @impl true
+  def handle_info({:todo_updated, _todo}, socket) do
+    {:noreply, assign(socket, :todos, list_todos())}
+  end
+
+  @impl true
+  def handle_info({:todo_deleted, _id}, socket) do
+    {:noreply, assign(socket, :todos, list_todos())}
+  end
+
   defp save_todo(socket, :index, todo_params) do
     image_path =
       consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
@@ -121,7 +154,13 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
     todo_params = Map.put(todo_params, "image", image_path)
 
     case Repo.insert(Todo.changeset(%Todo{}, todo_params)) do
-      {:ok, _todo} ->
+      {:ok, todo} ->
+        Phoenix.PubSub.broadcast(
+          AtlanticaTodo.PubSub,
+          @topic,
+          {:todo_created, todo}
+        )
+
         {:noreply,
          socket
          |> put_flash(:info, "Todo created successfully")

@@ -8,17 +8,13 @@ defmodule AtlanticaTodoWeb.TodoLive.Index.SwiftUI do
         <VStack>
           <%= for todo <- @todos do %>
             <HStack>
-              <Toggle isOn="true"></Toggle>
+              <Toggle isOn={todo.completed} phx-click="toggle" phx-value-id={todo.id}></Toggle>
               <%!-- <Circle style="frame(width: 20, height: 20)"/> --%>
               <VStack>
                 <Text style="font(.headline)" class={if todo.completed, do: "completed", else: "incomplete"}><%= todo.title %></Text>
                 <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
                 <%= if todo.image do %>
-                  <%!-- <.image url={todo.image} style="frame(width: 20, height: 20)">
-                    <:empty>
-                      <Image systemName="myloading.spinner" />
-                    </:empty>
-                  </.image> --%>
+                  <Image url={todo.image} style="frame(width: 64, height: 64)"/>
                 <% end %>
                 <%!--
                 # AsyncImage(url: URL(string: image)) { image in
