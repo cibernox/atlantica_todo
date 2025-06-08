@@ -4,15 +4,42 @@ defmodule AtlanticaTodoWeb.TodoLive.Index.SwiftUI do
     ~LVN"""
     <Text>My Tasks</Text>
     <ZStack>
-      <ScrollView>
+      <ScrollView style="spacing(12)">
         <VStack>
           <%= for todo <- @todos do %>
             <HStack>
-              <Circle style="frame(width: 20, height: 20)"/>
+              <Toggle isOn="true"></Toggle>
+              <%!-- <Circle style="frame(width: 20, height: 20)"/> --%>
               <VStack>
-                <Text style={"font(.headline)"} class={if todo.completed, do: "completed", else: "incomplete"}><%= todo.title %></Text>
-                <Text style="font(.subheadline).foregroundStyle(.gray)"><%= todo.description %></Text>
+                <Text style="font(.headline)" class={if todo.completed, do: "completed", else: "incomplete"}><%= todo.title %></Text>
+                <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
+                <%= if todo.image do %>
+                  <%!-- <.image url={todo.image} style="frame(width: 20, height: 20)">
+                    <:empty>
+                      <Image systemName="myloading.spinner" />
+                    </:empty>
+                  </.image> --%>
+                <% end %>
+                <%!--
+                # AsyncImage(url: URL(string: image)) { image in
+                #     image
+                #         .resizable()
+                #         .aspectRatio(contentMode: .fill)
+                #         .frame(width: 64, height: 64)
+                #         .clipShape(RoundedRectangle(cornerRadius: 8))
+                #         .onTapGesture {
+                #             onImageTap(image)
+                #         }
+                # } placeholder: {
+                #     Color.gray
+                #         .frame(width: 64, height: 64)
+                #         .clipShape(RoundedRectangle(cornerRadius: 8))
+                # } --%>
               </VStack>
+              <Spacer/>
+              <.button phx-click="delete" phx-value-id={todo.id}>
+                <.icon name="trash" style="foregroundColor(.gray)"/>
+              </.button>
             </HStack>
           <% end %>
         </VStack>
@@ -20,10 +47,32 @@ defmodule AtlanticaTodoWeb.TodoLive.Index.SwiftUI do
       <VStack>
         <Spacer/>
         <HStack>
-          <Button style="padding()">+</Button>
+          <Button style="padding()" phx-click="open_form">
+            <.icon name="plus" style={[
+                "font(.title2)",
+                "foregroundColor(.white)",
+                "frame(width: 56, height: 56)",
+                "background(Color.blue)",
+                "clipShape(Circle())",
+                "shadow(radius: 4)"
+              ]}/>
+            <%!-- <Image
+              systemName="plus"
+              style={[
+                "font(.title2)",
+                "foregroundColor(.white)",
+                "frame(width: 56, height: 56)",
+                "background(Color.blue)",
+                "clipShape(Circle())",
+                "shadow(radius: 4)"
+              ]}/> --%>
+          </Button>
         </HStack>
       </VStack>
     </ZStack>
+    <.modal show={@show_form} id="confirm-modal">
+      This is a modal.
+    </.modal>
     """
   end
 end
