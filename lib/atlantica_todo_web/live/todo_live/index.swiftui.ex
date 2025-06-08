@@ -46,20 +46,21 @@ defmodule AtlanticaTodoWeb.TodoLive.Index.SwiftUI do
         <Spacer/>
         <HStack style="padding(.bottom, 16)">
           <Spacer/>
-          <Button style="padding()" phx-click="open_form">
+          <ZStack style={[
+            "frame(width: 56, height: 56)",
+            "background(Color.blue)",
+            "cornerRadius(28)",
+            "shadow(radius: 4)"
+          ]} phx-click="open_form">
             <.icon name="plus" style={[
               "font(.title2)",
-              "foregroundColor(.white)",
-              "frame(width: 56, height: 56)",
-              "background(Color.blue)",
-              "clipShape(Circle())",
-              "shadow(radius: 4)"
+              "foregroundStyle(.white)"
             ]}/>
-          </Button>
+          </ZStack>
         </HStack>
       </VStack>
     </ZStack>
-    <.modal show={@show_form} id="confirm-modal">
+    <.modal show={@show_form} id="todo-form">
       This is a modal.
     </.modal>
     """
