@@ -1,70 +1,6 @@
 defmodule AtlanticaTodoWeb.TodoLive.Index.SwiftUI do
   use AtlanticaTodoNative, [:render_component, format: :swiftui]
-  def render(assigns, _interface) do
-    ~LVN"""
-    <ZStack style={["background(Color.white)", "ignoresSafeArea()", "preferredColorScheme(.light)"]}>
-      <VStack style="fillMaxSize()">
-        <Text style={[
-          "font(.largeTitle)",
-          "fontWeight(.bold)",
-          "padding(.top, 32)",
-          "padding(.bottom, 12)",
-          "frame(maxWidth: .infinity, alignment: .center)"
-        ]}>
-          My Tasks
-        </Text>
-        <Divider/>
-        <ScrollView style={["spacing(12)", "fillMaxSize()"]}>
-          <VStack style={["padding(.horizontal, 16)", "padding(.top, 16)", "padding(.bottom, 16)"]}>
-            <%= for todo <- @todos do %>
-              <HStack style={[
-                "padding()",
-                "background(Color.gray.opacity(0.1))",
-                "cornerRadius(24)",
-              ]}>
-                <Toggle isOn={todo.completed} phx-click="toggle" phx-value-id={todo.id}></Toggle>
-                <%!-- <Circle style="frame(width: 20, height: 20)"/> --%>
-                <VStack class={if todo.completed, do: "completed", else: "incomplete"}>
-                  <Text
-                    style={["font(.headline)", "foregroundStyle(Color.primary)"]}
-                    ><%= todo.title %></Text>
-                  <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
-                  <%= if todo.image do %>
-                    <Image url={todo.image} style="frame(width: 64, height: 64)"/>
-                  <% end %>
-                </VStack>
-                <Spacer/>
-                <.button phx-click="delete" phx-value-id={todo.id}>
-                  <.icon name="trash" style="foregroundStyle(.gray)"/>
-                </.button>
-              </HStack>
-            <% end %>
-          </VStack>
-        </ScrollView>
-      </VStack>
-      <VStack style="fillMaxSize()">
-        <Spacer/>
-        <HStack style="padding(.bottom, 16)">
-          <Spacer/>
-          <ZStack style={[
-            "frame(width: 56, height: 56)",
-            "background(Color.blue)",
-            "cornerRadius(28)",
-            "shadow(radius: 4)"
-          ]} phx-click="open_form">
-            <.icon name="plus" style={[
-              "font(.title2)",
-              "foregroundStyle(.white)"
-            ]}/>
-          </ZStack>
-        </HStack>
-      </VStack>
-    </ZStack>
-    <.modal show={@show_form} id="todo-form">
-      This is a modal.
-    </.modal>
-    """
-  end
+
 end
 
 
@@ -114,7 +50,6 @@ end
 # struct TodoItemView: View {
 #   let todo: Todo
 #   let onImageTap: (String) -> Void
-
 #   var body: some View {
 #       HStack(alignment: .top, spacing: 16) {
 #           // Checkbox

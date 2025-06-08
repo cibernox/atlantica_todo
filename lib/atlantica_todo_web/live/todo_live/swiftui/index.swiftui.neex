@@ -1,0 +1,82 @@
+<ZStack style={["background(Color.white)", "ignoresSafeArea()", "preferredColorScheme(.light)"]}>
+  <VStack style="fillMaxSize()">
+    <Text style={[
+      "font(.largeTitle)",
+      "fontWeight(.bold)",
+      "padding(.top, 32)",
+      "padding(.bottom, 12)",
+      "frame(maxWidth: .infinity, alignment: .center)"
+    ]}>
+      My Tasks
+    </Text>
+    <Divider/>
+    <ScrollView style={["spacing(12)", "fillMaxSize()"]}>
+      <VStack style={["padding(.horizontal, 16)", "padding(.top, 16)", "padding(.bottom, 16)"]}>
+        <%= for todo <- @todos do %>
+          <HStack style={[
+            "padding()",
+            "background(Color.gray.opacity(0.1))",
+          ]}>
+            <ZStack style="frame(width: 20, height: 20)" phx-click="toggle" phx-value-id={todo.id}>
+              <Circle style={[
+                "frame(width: 20, height: 20)"
+              ]}/>
+              <%= if todo.completed do %>
+                <Circle style={[
+                  "fill(Color.green)",
+                  "frame(width: 12, height: 12)"
+                ]}/>
+              <% end %>
+            </ZStack>
+            <VStack class={if todo.completed, do: "completed", else: "incomplete"}>
+              <Text
+                style={["font(.headline)", "foregroundStyle(Color.primary)"]}
+                ><%= todo.title %></Text>
+              <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
+              <%= if todo.image do %>
+                <Image url={todo.image} style="frame(width: 64, height: 64)"/>
+              <% end %>
+            </VStack>
+            <Spacer/>
+            <.button phx-click="delete" phx-value-id={todo.id}>
+              <.icon name="trash" style="foregroundStyle(.gray)"/>
+            </.button>
+          </HStack>
+        <% end %>
+      </VStack>
+    </ScrollView>
+  </VStack>
+  <VStack style="fillMaxSize()">
+    <Spacer/>
+    <HStack style="padding(.bottom, 16)">
+      <Spacer/>
+      <ZStack style={[
+        "frame(width: 56, height: 56)",
+        "background(Color.blue)",
+        "clipShape(.circle)",
+        "shadow(radius: 4)"
+      ]} phx-click="open_form">
+        <.icon name="plus" style={[
+          "font(.title2)",
+          "foregroundStyle(.white)"
+        ]}/>
+      </ZStack>
+    </HStack>
+  </VStack>
+</ZStack>
+<VStack
+  id="asdnjad"
+  :if={@show_form}
+  style='sheet(isPresented: attr("presented"), content: :content)'
+  presented={@show_form}
+>
+  <VStack template="content">
+    <Text>Hello</Text>
+    <Text>Hello</Text>
+    <Text>Hello</Text>
+    <Text>Hello</Text>
+  </VStack>
+</VStack>
+<%!-- <.modal show={@show_form} id="todo-form">
+  This is a modal.
+</.modal> --%>
