@@ -152,6 +152,9 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
       |> List.first()
 
     todo_params = Map.put(todo_params, "image", image_path)
+    # Trim whitespace from title and description
+    todo_params = Map.update(todo_params, "title", "", &String.trim/1)
+    todo_params = Map.update(todo_params, "description", "", &String.trim/1)
 
     case Repo.insert(Todo.changeset(%Todo{}, todo_params)) do
       {:ok, todo} ->

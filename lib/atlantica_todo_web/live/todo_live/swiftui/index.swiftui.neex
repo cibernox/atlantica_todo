@@ -1,42 +1,55 @@
-<ZStack style={["background(Color.white)", "ignoresSafeArea()", "preferredColorScheme(.light)"]}>
+<ZStack style={["background(Color.white)", "preferredColorScheme(.light)"]}>
   <VStack style="fillMaxSize()">
-    <Text style={[
-      "font(.largeTitle)",
-      "fontWeight(.bold)",
-      "padding(.top, 32)",
-      "padding(.bottom, 12)",
-      "frame(maxWidth: .infinity, alignment: .center)"
-    ]}>
+    <Text style="font(.largeTitle);fontWeight(.bold)">
       My Tasks
     </Text>
-    <Divider/>
-    <ScrollView style={["spacing(12)", "fillMaxSize()"]}>
-      <VStack style={["padding(.horizontal, 16)", "padding(.top, 16)", "padding(.bottom, 16)"]}>
+    <ScrollView>
+      <VStack style="padding(16)">
         <%= for todo <- @todos do %>
           <HStack style={[
             "padding()",
-            "background(Color.gray.opacity(0.1))",
+            "background(Color(red: 0.95, green: 0.95, blue: 0.95))",
+            "clipShape(RoundedRectangle(cornerRadius: 12))",
           ]}>
-            <ZStack style="frame(width: 20, height: 20)" phx-click="toggle" phx-value-id={todo.id}>
-              <Circle style={[
-                "frame(width: 20, height: 20)"
-              ]}/>
-              <%= if todo.completed do %>
+            <VStack>
+              <ZStack style="frame(width: 20, height: 20)" phx-click="toggle" phx-value-id={todo.id}>
                 <Circle style={[
-                  "fill(Color.green)",
-                  "frame(width: 12, height: 12)"
+                  "fill(Color.gray)",
+                  "frame(width: 20, height: 20)"
                 ]}/>
-              <% end %>
-            </ZStack>
-            <VStack class={if todo.completed, do: "completed", else: "incomplete"}>
-              <Text
-                style={["font(.headline)", "foregroundStyle(Color.primary)"]}
-                ><%= todo.title %></Text>
-              <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
-              <%= if todo.image do %>
-                <Image url={todo.image} style="frame(width: 64, height: 64)"/>
-              <% end %>
+                <%= if todo.completed do %>
+                  <Circle style={[
+                    "fill(Color.green)",
+                    "frame(width: 20, height: 20)"
+                  ]}/>
+                  <.icon name="checkmark" style={[
+                    "foregroundStyle(.white)",
+                    "font(.system(size: 10))"
+                  ]}/>
+                <% else %>
+                  <Circle style={[
+                    "fill(Color.white)",
+                    "frame(width: 16, height: 16)"
+                  ]}/>
+                <% end %>
+              </ZStack>
+              <Spacer/>
             </VStack>
+            <VStack class={if todo.completed, do: "completed", else: "incomplete"} style={["padding(.leading, 8)", "alignment(.leading)"]}>
+              <Text style={["font(.headline)", "frame(maxWidth: .infinity, alignment: .leading)"]}><%= todo.title %></Text>
+              
+              <HStack style="spacing(8)">
+                <.image url={todo.image} :if={todo.image} phx-click="open_image_detail" phx-value-url={todo.image}>
+                  <:success style="resizable();frame(width: 40, height: 40)"/>
+                </.image>
+                <VStack>
+                  <Text style={["font(.subheadline)", "foregroundStyle(.gray)", "frame(maxWidth: .infinity, alignment: .leading)"]} :if={todo.description}><%= todo.description %></Text>
+                  <Spacer/>
+                </VStack>
+                <Spacer/>
+              </HStack>
+            </VStack>
+
             <Spacer/>
             <.button phx-click="delete" phx-value-id={todo.id}>
               <.icon name="trash" style="foregroundStyle(.gray)"/>
@@ -46,9 +59,10 @@
       </VStack>
     </ScrollView>
   </VStack>
+  
   <VStack style="fillMaxSize()">
     <Spacer/>
-    <HStack style="padding(.bottom, 16)">
+    <HStack style="padding(.bottom, 16);padding(.horizontal, 16)">
       <Spacer/>
       <ZStack style={[
         "frame(width: 56, height: 56)",
@@ -64,19 +78,13 @@
     </HStack>
   </VStack>
 </ZStack>
-<VStack
-  id="asdnjad"
-  :if={@show_form}
-  style='sheet(isPresented: attr("presented"), content: :content)'
-  presented={@show_form}
->
-  <VStack template="content">
-    <Text>Hello</Text>
-    <Text>Hello</Text>
-    <Text>Hello</Text>
-    <Text>Hello</Text>
+<.modal show={@image_modal_url} id="image-preview">
+  <VStack style="fillMaxSize()">
+    <Spacer/>
+    <.image url={@image_modal_url} style="resizable();aspectRatio(contentMode: .fit);frame(maxWidth: .infinity, maxHeight: .infinity)"/>
+    <Spacer/>
   </VStack>
-</VStack>
-<%!-- <.modal show={@show_form} id="todo-form">
+</.modal>
+<.modal show={@show_form} id="todo-form">
   This is a modal.
-</.modal> --%>
+</.modal>
