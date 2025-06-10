@@ -1,5 +1,5 @@
 <ZStack style={["background(Color.white)", "preferredColorScheme(.light)"]}>
-  <VStack style="fillMaxSize()">
+  <VStack>
     <Text style="font(.largeTitle);fontWeight(.bold)">
       My Tasks
     </Text>
@@ -8,8 +8,7 @@
         <%= for todo <- @todos do %>
           <HStack style={[
             "padding()",
-            "background(Color(red: 0.95, green: 0.95, blue: 0.95))",
-            "clipShape(RoundedRectangle(cornerRadius: 12))",
+            "background(Color(red: 0.95, green: 0.95, blue: 0.95))"
           ]}>
             <VStack>
               <ZStack style="frame(width: 20, height: 20)" phx-click="toggle" phx-value-id={todo.id}>
@@ -35,10 +34,10 @@
               </ZStack>
               <Spacer/>
             </VStack>
-            <VStack class={if todo.completed, do: "completed", else: "incomplete"} style={["padding(.leading, 8)", "alignment(.leading)"]}>
+            <VStack class={if todo.completed, do: "completed", else: "incomplete"} style={["padding(.leading, 8)"]}>
               <Text style={["font(.headline)", "frame(maxWidth: .infinity, alignment: .leading)"]}><%= todo.title %></Text>
               
-              <HStack style="spacing(8)">
+              <HStack>
                 <.image url={todo.image} :if={todo.image} phx-click="open_image_detail" phx-value-url={todo.image}>
                   <:success 
                     style={[
@@ -83,7 +82,7 @@
     </ScrollView>
   </VStack>
   
-  <VStack style="fillMaxSize()">
+  <VStack>
     <Spacer/>
     <HStack style="padding(.bottom, 16);padding(.horizontal, 16)">
       <Spacer/>
