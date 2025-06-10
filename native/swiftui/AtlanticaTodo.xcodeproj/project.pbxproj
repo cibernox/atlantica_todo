@@ -170,6 +170,7 @@
 			packageReferences = (
 				388D8D6C51C48D29D609BA22 /* XCRemoteSwiftPackageReference "liveview-client-swiftui" */,
 				E3C28BD5ADA5A54CEC53E90B /* XCRemoteSwiftPackageReference "liveview-native-live-form" */,
+				E5408DBC2DF890E300EED1C6 /* XCRemoteSwiftPackageReference "liveview-native-swiftui-photokit" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -487,6 +488,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = "0.4.0-rc.1";
+			};
+		};
+		E5408DBC2DF890E300EED1C6 /* XCRemoteSwiftPackageReference "liveview-native-swiftui-photokit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/liveview-native/liveview-native-swiftui-photokit";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

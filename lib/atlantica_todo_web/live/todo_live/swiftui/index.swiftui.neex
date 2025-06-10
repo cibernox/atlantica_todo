@@ -122,22 +122,16 @@
                     "padding()",
                     "background(Color.gray.opacity(0.1))",
                   ]}>
-                    <%= if Enum.empty?(@uploads.image.entries) do %>
-                      <VStack>
-                        <.icon name="photo" style="font(.title);foregroundStyle(.gray)"/>
-                        <Text style="font(.caption);foregroundStyle(.gray)">PNG, JPG up to 10MB</Text>
-                        <.live_file_input upload={@uploads.image} style="opacity(0);frame(width: 60, height: 60)" />
-                      </VStack>
-                    <% else %>
-                      <%= for entry <- @uploads.image.entries do %>
-                        <HStack>
-                          <.live_img_preview entry={entry} style="frame(width: 60, height: 60)" />
-                          <.button phx-click="cancel-upload" phx-value-ref={entry.ref} style="foregroundStyle(.red)">
-                            <.icon name="xmark.circle.fill" />
-                          </.button>
-                        </HStack>
-                      <% end %>
-                    <% end %>
+                    <VStack>
+                      <PhotosPicker
+                        data-phx-upload-ref={@uploads.image.ref}
+                        maxSelectionCount="1"
+                        name="image"
+                      >
+                        <%= @uploads.image.ref %>
+                        <Label systemImage="photo.fill">Pick Photo</Label>
+                      </PhotosPicker>                        
+                    </VStack>
                   </HStack>
                 </VStack> 
                 

@@ -63,7 +63,7 @@ defmodule AtlanticaTodo.MixProject do
       {:live_view_native, "~> 0.4.0-rc.1"},
       {:live_view_native_stylesheet, "~> 0.4.0-rc.1"},
       {:live_view_native_swiftui, "~> 0.4.0-rc.1"},
-      {:live_view_native_live_form, "~> 0.4.0-rc.1"}
+      {:live_view_native_live_form, "~> 0.4.0-rc.1"},
     ]
   end
 
