@@ -23,6 +23,7 @@
 		AF8EA13EA873EB1DEA9CF615 /* LiveViewNative in Frameworks */ = {isa = PBXBuildFile; productRef = A1520A4CBEC710EC0893F6ED /* LiveViewNative */; };
 		CEA8B764FF0BEEED60495D45 /* LiveViewNative in Frameworks */ = {isa = PBXBuildFile; productRef = 86ECE56D133E1750DFE20332 /* LiveViewNative */; };
 		E09E24F41820668D7D4332C4 /* DisconnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEE4F5A835F012F59398FAD /* DisconnectedView.swift */; };
+		E5408DBF2DF8B61900EED1C6 /* LiveViewNativePhotoKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5408DBE2DF8B61900EED1C6 /* LiveViewNativePhotoKit */; };
 		E5C627F2EB0ECA89DD0DA725 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD32F051706F6695388FD8F7 /* ErrorView.swift */; };
 		E7F2EBADA4CBAF9E835F265A /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DEE980DE6DA4E739C7C30 /* ConnectingView.swift */; };
 		EF5B5232CFF856E410AA4D69 /* ReconnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A19CADABB249E6555BAF06 /* ReconnectingView.swift */; };
@@ -48,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA8B764FF0BEEED60495D45 /* LiveViewNative in Frameworks */,
+				E5408DBF2DF8B61900EED1C6 /* LiveViewNativePhotoKit in Frameworks */,
 				161C1703FED785FC18CAE21F /* LiveViewNativeLiveForm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +95,7 @@
 			children = (
 				06258AE8576EBE3646ED6F5B /* AtlanticaTodo */,
 				9B8163E1A0C2B0AFC37099E2 /* Products */,
+				E5408DBD2DF8B61900EED1C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +105,13 @@
 				9342EB7690BC975D539F5007 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E5408DBD2DF8B61900EED1C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +154,7 @@
 			packageProductDependencies = (
 				86ECE56D133E1750DFE20332 /* LiveViewNative */,
 				938A1677680BB1C0DE7EACB4 /* LiveViewNativeLiveForm */,
+				E5408DBE2DF8B61900EED1C6 /* LiveViewNativePhotoKit */,
 			);
 			productName = AtlanticaTodo;
 			productReference = 3030FF23E034AD5FA1B251B2 /* AtlanticaTodo.app */;
@@ -520,6 +531,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 388D8D6C51C48D29D609BA22 /* XCRemoteSwiftPackageReference "liveview-client-swiftui" */;
 			productName = LiveViewNative;
+		};
+		E5408DBE2DF8B61900EED1C6 /* LiveViewNativePhotoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5408DBC2DF890E300EED1C6 /* XCRemoteSwiftPackageReference "liveview-native-swiftui-photokit" */;
+			productName = LiveViewNativePhotoKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

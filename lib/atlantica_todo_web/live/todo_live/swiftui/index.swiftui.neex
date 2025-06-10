@@ -123,14 +123,13 @@
                     "background(Color.gray.opacity(0.1))",
                   ]}>
                     <VStack>
-                      <PhotosPicker
+                      <%!-- <PhotosPicker
                         data-phx-upload-ref={@uploads.image.ref}
                         maxSelectionCount="1"
                         name="image"
                       >
-                        <%= @uploads.image.ref %>
                         <Label systemImage="photo.fill">Pick Photo</Label>
-                      </PhotosPicker>                        
+                      </PhotosPicker>                         --%>
                     </VStack>
                   </HStack>
                 </VStack> 
