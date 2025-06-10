@@ -6,6 +6,7 @@
 import SwiftUI
 import LiveViewNative
 import LiveViewNativeLiveForm
+import LiveViewNativePhotoKit
 
 struct ContentView: View {
     var body: some View {
@@ -15,7 +16,8 @@ struct ContentView: View {
                 production: URL(string: "https://example.com")!
             ),
             addons: [
-               .liveForm
+               .liveForm,
+               .photoKit
             ]
         ) {
             ConnectingView()
