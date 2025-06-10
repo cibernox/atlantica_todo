@@ -38,16 +38,30 @@
               <Text style={["font(.headline)", "frame(maxWidth: .infinity, alignment: .leading)"]}><%= todo.title %></Text>
               
               <HStack>
-                <.image url={todo.image} :if={todo.image} phx-click="open_image_detail" phx-value-url={todo.image}>
-                  <:success 
-                    style={[
-                      "resizable()",
-                      "frame(width: 40, height: 40)",
-                      ~s[sheet(isPresented: attr("show-image-detail"), content: :image_preview)]
-                    ]}
-                    show-image-detail={!!@image_modal_url} 
-                    />
-                </.image>
+                <Button 
+                  :if={todo.image} 
+                  show-image-detail={!!@image_modal_url} 
+                  phx-click="open_image_detail"
+                  phx-change="close_image_detail"
+                  phx-value-url={todo.image}                  
+                  style={[
+                    ~s[sheet(isPresented: attr("show-image-detail"), content: :image_preview)]
+                  ]}>
+                  <.image url={todo.image}>
+                    <:success style="resizable();frame(width: 40, height: 40)"/>                                       
+                  </.image>
+                  <VStack template="image_preview" style="frame(maxWidth: .infinity, maxHeight: .infinity)">
+                    <Spacer/>
+                    <.image url={@image_modal_url}>
+                      <:success style={[
+                        "resizable()",
+                        "aspectRatio(contentMode: .fit)",
+                        "frame(maxWidth: .infinity, maxHeight: .infinity)"
+                      ]}/>                                       
+                    </.image>
+                    <Spacer/>
+                  </VStack>                    
+                </Button>
                 <VStack>
                   <Text style={["font(.subheadline)", "foregroundStyle(.gray)", "frame(maxWidth: .infinity, alignment: .leading)"]} :if={todo.description}><%= todo.description %></Text>
                   <Spacer/>
@@ -61,23 +75,7 @@
               <.icon name="trash" style="foregroundStyle(.gray)"/>
             </.button>
           </HStack>
-        <% end %>
-        <VStack template="image_preview">
-          <Spacer/>
-          <Text>This is an image modal</Text>
-          <Text>This is an image modal</Text>
-          <Text>This is an image modal</Text>
-          <%!-- <.image 
-            url={@image_modal_url} 
-            style={[
-              "resizable()",
-              "frame(width: 100, height: 200)",
-              "aspectRatio(contentMode: .fit)",
-              "frame(maxWidth: .infinity, maxHeight: .infinity)"
-            ]}
-          /> --%>
-          <Spacer/>
-        </VStack>          
+        <% end %>        
       </VStack>
     </ScrollView>
   </VStack>
