@@ -62,7 +62,7 @@ defmodule AtlanticaTodo.MixProject do
       {:tidewave, "~> 0.1", only: :dev},
       {:live_view_native, "~> 0.4.0-rc.1"},
       {:live_view_native_stylesheet, "~> 0.4.0-rc.1"},
-      {:live_view_native_swiftui, github: "liveview-native/liveview-client-swiftui", branch: "nuke-lazyimage"},
+      {:live_view_native_swiftui, "~> 0.4.0-rc.1"},
       {:live_view_native_live_form, "~> 0.4.0-rc.1"}
     ]
   end
