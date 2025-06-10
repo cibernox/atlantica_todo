@@ -115,7 +115,7 @@
                 <.input field={@form[:description]} type="TextField" label="Description (optional)"
                   placeholder="Add some details..." />
                 
-                <VStack>
+                <%!-- <VStack>
                   <Text style="font(.subheadline)">Image (optional)</Text>
                   <HStack style={[
                     "frame(maxWidth: .infinity)",
@@ -123,16 +123,16 @@
                     "background(Color.gray.opacity(0.1))",
                   ]}>
                     <VStack>
-                      <%!-- <PhotosPicker
+                      <PhotosPicker
                         data-phx-upload-ref={@uploads.image.ref}
                         maxSelectionCount="1"
                         name="image"
                       >
                         <Label systemImage="photo.fill">Pick Photo</Label>
-                      </PhotosPicker>                         --%>
+                      </PhotosPicker>                        
                     </VStack>
                   </HStack>
-                </VStack> 
+                </VStack>  --%>
                 
                 <HStack>
                   <.button phx-click="close_form" style={[
