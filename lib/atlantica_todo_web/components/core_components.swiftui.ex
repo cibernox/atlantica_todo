@@ -447,7 +447,7 @@ defmodule AtlanticaTodoWeb.CoreComponents.SwiftUI do
   def button(%{ type: "submit" } = assigns, _interface) do
     ~LVN"""
     <Section>
-      <LiveSubmitButton style={[
+      <LiveButton type="submit" style={[
         "buttonStyle(.borderedProminent)",
         "controlSize(.large)",
         "listRowInsets(EdgeInsets())",
@@ -459,7 +459,7 @@ defmodule AtlanticaTodoWeb.CoreComponents.SwiftUI do
         ]}>
           <%= render_slot(@inner_block) %>
         </Group>
-      </LiveSubmitButton>
+      </LiveButton>
     </Section>
     """
   end
