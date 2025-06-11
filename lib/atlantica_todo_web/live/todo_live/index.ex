@@ -3,7 +3,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   use AtlanticaTodoNative, :live_view
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
-
+  require Logger
   @topic "todos"
 
   @impl true
@@ -46,6 +46,11 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   @impl true
   def handle_event("save", %{"todo" => todo_params}, socket) do
     save_todo(socket, socket.assigns.live_action, todo_params)
+  end
+  def handle_event("save", params, socket) do
+    Logger.info("save params alternativo: #{inspect(params)}")
+    {:noreply, socket}
+    # save_todo(socket, socket.assigns.live_action, todo_params)
   end
 
   @impl true
