@@ -1,4 +1,4 @@
-<ZStack style={["background(Color.white)", "preferredColorScheme(.light)"]}>
+<ZStack style="preferredColorScheme(.light)">
   <VStack>
     <Text style="font(.largeTitle);fontWeight(.bold)">
       My Tasks
@@ -6,27 +6,12 @@
     <ScrollView>
       <VStack style="padding(16)">
         <%= if Enum.empty?(@todos) do %>
-          <VStack style={[
-            "padding(.vertical, 32)",
-            "frame(maxWidth: .infinity)",
-            "alignment(.center)"
-          ]}>
-            <.icon name="doc.text" style={[
-              "font(.system(size: 48))",
-              "foregroundStyle(.gray)"
-            ]}/>
-            <Text style={[
-              "font(.headline)",
-              "foregroundStyle(.gray)",
-              "padding(.top, 8)"
-            ]}>
+          <VStack style="padding(.vertical, 32);foregroundStyle(.gray)">
+            <.icon name="doc.text" style="font(.system(size: 48))"/>
+            <Text style="font(.headline);padding(.top, 8)">
               No tasks yet
             </Text>
-            <Text style={[
-              "font(.subheadline)",
-              "foregroundStyle(.gray.opacity(0.8))",
-              "padding(.top, 4)"
-            ]}>
+            <Text style="font(.subheadline);padding(.top, 4)">
               Get started by creating a new task
             </Text>
           </VStack>
@@ -34,7 +19,7 @@
           <%= for todo <- @todos do %>
             <HStack style={[
               "padding()",
-              "background(Color(red: 0.95, green: 0.95, blue: 0.95))"
+              "background(Color(red: 0.95, green: 0.95, blue: 0.95))",
             ]}>
               <VStack>
                 <ZStack style="frame(width: 20, height: 20)" phx-click="toggle" phx-value-id={todo.id}>
@@ -62,7 +47,6 @@
               </VStack>
               <VStack class={if todo.completed, do: "completed", else: "incomplete"} style={["padding(.leading, 8)"]}>
                 <Text style={["font(.headline)", "frame(maxWidth: .infinity, alignment: .leading)"]}><%= todo.title %></Text>
-                
                 <HStack>
                   <Button 
                     :if={todo.image} 
@@ -76,6 +60,7 @@
                     <.image url={todo.image}>
                       <:success style="resizable();frame(width: 40, height: 40)"/>                                       
                     </.image>
+                    <%!-- Image detail modal --%>
                     <VStack template="image_preview" style="frame(maxWidth: .infinity, maxHeight: .infinity)">
                       <Spacer/>
                       <.image url={@image_modal_url}>
@@ -89,7 +74,7 @@
                     </VStack>                    
                   </Button>
                   <VStack>
-                    <Text style={["font(.subheadline)", "foregroundStyle(.gray)", "frame(maxWidth: .infinity, alignment: .leading)"]} :if={todo.description}><%= todo.description %></Text>
+                    <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
                     <Spacer/>
                   </VStack>
                   <Spacer/>
@@ -98,7 +83,7 @@
 
               <Spacer/>
               <.button phx-click="delete" phx-value-id={todo.id}>
-                <.icon name="trash" style="foregroundStyle(.gray)"/>
+                <.icon name="trash" style="foregroundStyle(.red)"/>
               </.button>
             </HStack>
           <% end %>        
@@ -125,7 +110,10 @@
           <.icon name="plus" style={[
             "font(.title2)",
             "foregroundStyle(.white)"
-          ]}/>       
+          ]}/>
+
+          
+           <%!-- New task form --%>
           <VStack template="todo_form">
             <Text style="font(.title);fontWeight(.bold);padding(.bottom, 16)">
               New Task
@@ -140,7 +128,7 @@
                 <.input field={@form[:description]} type="TextField" label="Description (optional)"
                   placeholder="Add some details..." />
                 
-                <%!-- <VStack>
+                <VStack>
                   <Text style="font(.subheadline)">Image (optional)</Text>
                   <HStack style={[
                     "frame(maxWidth: .infinity)",
@@ -157,7 +145,7 @@
                       </PhotosPicker>                        
                     </VStack>
                   </HStack>
-                </VStack>  --%>
+                </VStack> 
                 
                 <HStack>
                   <.button phx-click="close_form" style={[
