@@ -18,23 +18,19 @@
           </div>
         <% else %>
           <%= for todo <- @todos do %>
-            <div class="bg-gray-50 rounded-xl p-4 hover:shadow-md transition-shadow duration-200">
-              <div class="flex items-start space-x-4">
+            <div class="bg-gray-50 rounded-xl p-3 hover:shadow-md transition-shadow duration-200">
+              <div class="flex items-center space-x-4">
                 <button phx-click="toggle" phx-value-id={todo.id}
-                  class={"mt-1 flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center #{if todo.completed, do: "bg-green-500 border-green-500", else: "border-gray-400"}"}>
+                  class={"flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center #{if todo.completed, do: "bg-green-500 border-green-500", else: "border-gray-400"}"}>
                   <.icon :if={todo.completed} name="hero-check" class="w-4 h-4 text-white" />
                 </button>
                 
                 <div class="flex-grow min-w-0">
                   <div class={"#{if todo.completed, do: "line-through text-gray-500", else: ""}"}>
                     <h3 class="text-lg font-medium"><%= todo.title %></h3>
-                    <div class="flex items-start space-x-4 mt-2">
-                      <%= if todo.image do %>
-                        <img src={todo.image} class="w-16 h-16 object-cover rounded-lg cursor-pointer" phx-click="open_image_detail" phx-value-url={todo.image} />
-                      <% end %>
-                      <%= if todo.description do %>
-                        <p class="text-gray-600"><%= todo.description %></p>
-                      <% end %>
+                    <div class="flex items-start space-x-4 mt-2" :if={todo.image || todo.description}>
+                      <img src={todo.image} :if={todo.image} class="w-16 h-16 object-cover rounded-lg cursor-pointer" phx-click="open_image_detail" phx-value-url={todo.image} />
+                      <p class="text-gray-600" :if={todo.description}><%= todo.description %></p>
                     </div>
                   </div>
                 </div>
