@@ -91,7 +91,7 @@ defmodule AtlanticaTodoWeb.CoreComponents.SwiftUI do
     styles =
       [{:readonly, assigns.readonly} , {:autocomplete, assigns.autocomplete}]
       |> Enum.reduce([], fn
-        {:readyonly, true}, styles -> ["disabled(true)" | styles]
+        {:readonly, true}, styles -> ["disabled(true)" | styles]
         {:autocomplete, "off"}, styles -> ["textInputAutocapitalization(.never)", "autocorrectionDisabled()" | styles]
         _, styles -> styles
       end)
@@ -193,8 +193,11 @@ defmodule AtlanticaTodoWeb.CoreComponents.SwiftUI do
     ~LVN"""
     <VStack alignment="leading">
       <LabeledContent>
-        <Text template="label">{@label}</Text>
-        <TextEditor id={@id} name={@name} text={@value} {@rest} />
+        <VStack alignment="leading">
+          <Label :if={assigns.label} style="font(.subheadline)">{assigns.label}</Label>
+          <TextEditor id={@id} name={@name} text={@value} {@rest} />
+          <Spacer />
+        </VStack>
       </LabeledContent>
       <.error :for={msg <- @errors}>{msg}</.error>
     </VStack>
@@ -204,6 +207,7 @@ defmodule AtlanticaTodoWeb.CoreComponents.SwiftUI do
   def input(%{type: "TextField"} = assigns, _interface) do
     ~LVN"""
     <VStack alignment="leading">
+      <Label :if={assigns.label} style="font(.subheadline)">{assigns.label}</Label>
       <TextField id={@id} name={@name} text={@value} prompt={@prompt} {@rest}><%= @placeholder || @label %></TextField>
       <.error :for={msg <- @errors}>{msg}</.error>
     </VStack>

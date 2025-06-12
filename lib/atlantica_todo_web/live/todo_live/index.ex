@@ -173,7 +173,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
          socket
          |> put_flash(:info, "Todo created successfully")
          |> assign(:todos, list_todos())
-         |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
+         |> assign(:form, to_form(Todo.changeset(%Todo{title: "", description: ""}, %{})))
          |> assign(:show_form, false)
          |> push_event("close_form", %{})}
 
