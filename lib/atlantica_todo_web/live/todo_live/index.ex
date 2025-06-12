@@ -3,6 +3,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   use AtlanticaTodoNative, :live_view
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
+  alias AtlanticaTodo.PubSub
   require Logger
   @topic "todos"
 
@@ -34,36 +35,19 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
 
   @impl true
   def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
-  end
-
-  defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Todo List")
-    |> assign(:form, to_form(Todo.changeset(%Todo{}, %{})))
+    {:noreply, assign(socket, :form, new_todo_form())}
   end
 
   @impl true
   def handle_event("save", %{"todo" => todo_params}, socket) do
     save_todo(socket, socket.assigns.live_action, todo_params)
   end
-  def handle_event("save", params, socket) do
-    Logger.info("save params alternativo: #{inspect(params)}")
-    {:noreply, socket}
-    # save_todo(socket, socket.assigns.live_action, todo_params)
-  end
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     todo = Repo.get!(Todo, id)
     {:ok, _} = Repo.delete(todo)
-
-    Phoenix.PubSub.broadcast(
-      AtlanticaTodo.PubSub,
-      @topic,
-      {:todo_deleted, id}
-    )
-
+    broadcast({:todo_deleted, id})
     {:noreply, assign(socket, :todos, list_todos())}
   end
 
@@ -72,37 +56,19 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
     todo = Repo.get!(Todo, id)
     {:ok, updated_todo} = Repo.update(Ecto.Changeset.change(todo, completed: !todo.completed))
 
-    Phoenix.PubSub.broadcast(
-      AtlanticaTodo.PubSub,
-      @topic,
-      {:todo_updated, updated_todo}
-    )
+    broadcast({:todo_updated, updated_todo})
 
     {:noreply, assign(socket, :todos, list_todos())}
   end
 
   @impl true
   def handle_event("open_form", _, socket) do
-    {:noreply,
-     socket
-     |> assign(:show_form, true)}
+    {:noreply, assign(socket, :show_form, true)}
   end
 
   @impl true
   def handle_event("close_form", _, socket) do
-    {:noreply,
-     socket
-     |> assign(:show_form, false)}
-  end
-
-  @impl true
-  def handle_event("validate", _params, socket) do
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_event("upload", _params, socket) do
-    {:noreply, socket}
+    {:noreply, assign(socket, :show_form, false)}
   end
 
   @impl true
@@ -126,10 +92,12 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   end
 
   @impl true
-  def handle_event("noop", _, socket), do: {:noreply, socket}
+  def handle_event("validate", _params, socket) do
+    {:noreply, socket}
+  end
 
   @impl true
-  def handle_info({:todo_created, todo}, socket) do
+  def handle_info({:todo_created, _todo}, socket) do
     {:noreply, assign(socket, :todos, list_todos())}
   end
 
@@ -144,47 +112,46 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   end
 
   defp save_todo(socket, :index, todo_params) do
-    image_path =
-      consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
-        uploads_dir = Path.join(["priv", "static", "uploads"])
-        File.mkdir_p!(uploads_dir)
-        extension = Path.extname(entry.client_name)
-        filename = "#{entry.uuid}#{extension}"
-        dest = Path.join(uploads_dir, filename)
-        File.cp!(path, dest)
-        {:ok, "/uploads/#{filename}"}
-      end)
-      |> List.first()
-
-    todo_params = Map.put(todo_params, "image", image_path)
-    # Trim whitespace from title and description
-    todo_params = Map.update(todo_params, "title", "", &String.trim/1)
-    todo_params = Map.update(todo_params, "description", "", &String.trim/1)
-
-    case Repo.insert(Todo.changeset(%Todo{}, todo_params)) do
+    todo_params
+    |> Map.put("image", get_image_path(socket))
+    |> Map.update("title", "", &String.trim/1)
+    |> Map.update("description", "", &String.trim/1)
+    |> then(&Todo.changeset(%Todo{}, &1))
+    |> Repo.insert()
+    |> case do
       {:ok, todo} ->
-        Phoenix.PubSub.broadcast(
-          AtlanticaTodo.PubSub,
-          @topic,
-          {:todo_created, todo}
-        )
+        broadcast({:todo_created, todo})
 
         {:noreply,
-         socket
-         |> put_flash(:info, "Todo created successfully")
-         |> assign(:todos, list_todos())
-         |> assign(:form, to_form(Todo.changeset(%Todo{title: "", description: ""}, %{})))
-         |> assign(:show_form, false)
-         |> push_event("close_form", %{})}
+          assign(socket, %{todos: list_todos(), form: new_todo_form(), show_form: false})}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply,
-         socket
-         |> assign(:form, to_form(changeset))}
+      {:error, changeset} ->
+        {:noreply, assign(socket, :form, to_form(changeset))}
     end
+  end
+
+  defp get_image_path(socket) do
+    consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
+      uploads_dir = Path.join(["priv", "static", "uploads"])
+      File.mkdir_p!(uploads_dir)
+      extension = Path.extname(entry.client_name)
+      filename = "#{entry.uuid}#{extension}"
+      dest = Path.join(uploads_dir, filename)
+      File.cp!(path, dest)
+      {:ok, "/uploads/#{filename}"}
+    end)
+    |> List.first()
   end
 
   defp list_todos do
     Repo.all(Todo)
+  end
+
+  defp new_todo_form do
+    to_form(Todo.changeset(%Todo{title: "", description: ""}, %{}))
+  end
+
+  defp broadcast(params) do
+    Phoenix.PubSub.broadcast(AtlanticaTodo.PubSub, @topic, params)
   end
 end
