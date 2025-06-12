@@ -489,8 +489,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/liveview-native/liveview-client-swiftui";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = "0.4.0-rc.1";
+				branch = main;
+				kind = branch;
 			};
 		};
 		E3C28BD5ADA5A54CEC53E90B /* XCRemoteSwiftPackageReference "liveview-native-live-form" */ = {

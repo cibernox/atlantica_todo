@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/liveview-native/liveview-client-swiftui",
       "state" : {
-        "revision" : "7f591cacc84ef4fa281a31f55eb01a6166756fd0",
-        "version" : "0.4.0-rc.1"
+        "branch" : "main",
+        "revision" : "f17b76b1a4b315b9c8fbb5337c7b8494cb54784f"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/liveview-native/liveview-native-core",
       "state" : {
-        "revision" : "c067c8b458458c6eb01ef73f9e40e282aa79719a",
-        "version" : "0.4.1-rc-2"
+        "revision" : "0e3475a96ebf9528be3645e476738f0b8181c0b2",
+        "version" : "0.4.1-rc-5"
       }
     },
     {
