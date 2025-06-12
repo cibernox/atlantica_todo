@@ -18,7 +18,7 @@
           </div>
         <% else %>
           <%= for todo <- @todos do %>
-            <div class="bg-gray-50 rounded-xl p-3 hover:shadow-md transition-shadow duration-200">
+            <div class="bg-gray-100 rounded-xl p-3 hover:shadow-md transition-shadow duration-200">
               <div class="flex items-center space-x-4">
                 <button phx-click="toggle" phx-value-id={todo.id}
                   class={"flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center #{if todo.completed, do: "bg-green-500 border-green-500", else: "border-gray-400"}"}>
@@ -123,9 +123,7 @@
 
   <!-- Image Modal -->
   <div :if={@image_modal_url} class="fixed inset-0 z-50 flex items-center justify-center">
-    <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/30" phx-click="close_image_detail"></div>
-    <!-- Modal content -->
     <div class="relative max-w-3xl w-full flex items-center justify-center">
       <img src={@image_modal_url} class="max-h-[80vh] max-w-full rounded-lg shadow-2xl border-4 border-white" />
     </div>
