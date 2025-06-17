@@ -1,195 +1,163 @@
-<ZStack style="preferredColorScheme(.light)">
-  <VStack>
-    <Text style="font(.largeTitle);fontWeight(.bold)">My Tasks</Text>
-    <ScrollView style="padding(16)">
-      <%= if Enum.empty?(@todos) do %>
-        <VStack style="padding(.vertical, 32);foregroundStyle(.gray)">
-          <.icon name="doc.text" style="font(.system(size: 48))"/>
-          <Text style="font(.headline);padding(.top, 8)">No tasks yet</Text>
-          <VStack>
-            <Text style="font(.subheadline);padding()">Get started by creating a new task</Text>
-            <Button phx-click="open_form" style="padding();background(.blue);clipShape(.capsule)">
-              <.icon name="plus" style="foregroundStyle(.white)" />
-              <Text style="foregroundStyle(.white)">New Task</Text>
-            </Button>
-          </VStack>     
-        </VStack>
-      <% else %>
-        <%= for todo <- @todos do %>
+<VStack
+  style={[
+    ~s[navigationTitle("My Tasks")],
+    ~s[sheet(isPresented: attr("show-form"), content: :todo_form)],
+    "toolbar(content: :toolbar)"
+  ]}
+  show-form={@show_form}
+  phx-change="close_form"
+>
+  <ToolbarItem template="toolbar" placement="primaryAction">
+    <.button phx-click="open_form"><.icon name="plus" /></.button>
+  </ToolbarItem>
+  <%= if Enum.empty?(@todos) do %>
+    <ContentUnavailableView>
+      <Label systemImage="doc.text" template="label">
+        No tasks yet
+      </Label>
+      <Text template="description">
+        Get started by creating a new task
+      </Text>
+      <Button phx-click="open_form" style="buttonStyle(.borderedProminent); controlSize(.extraLarge);" template="actions">
+        <.icon name="plus" style="foregroundStyle(.white)" />
+        <Text style="foregroundStyle(.white)">New Task</Text>
+      </Button>
+    </ContentUnavailableView>
+  <% else %>
+    <List style="listStyle(.insetGrouped);">
+      <%= for todo <- @todos do %>
+        <HStack id={todo.id} style={[
+          ~s[swipeActions(content: :swipe_actions)]
+        ]}>
+          <Group template="swipe_actions">
+            <.button phx-click="delete" phx-value-id={todo.id} role="destructive">
+              <.icon name="trash" />
+            </.button>
+          </Group>
+          <Label phx-click="toggle" phx-value-id={todo.id}>
+            <.icon
+              template="icon"
+              name={if todo.completed, do: "checkmark.circle.fill", else: "circle"}
+              style={[
+                "imageScale(.large)"
+              ]}
+            />
+            <HStack template="title">
+              <VStack
+                alignment="leading"
+                style="frame(maxWidth: .infinity, alignment: .leading);"
+                class={if todo.completed, do: "completed", else: "incomplete"}
+              >
+                <Text>{todo.title}</Text>
+                <Text style="foregroundStyle(.secondary); font(.caption);" :if={todo.description}>{todo.description}</Text>
+              </VStack>
+              <.button
+                phx-click="open_image_detail"
+                phx-change="close_image_detail"
+                phx-value-url={todo.image}
+                show-image-detail={@image_modal_url == todo.image and !!@image_modal_url}
+                style={[
+                  "buttonStyle(.plain)",
+                  ~s[sheet(isPresented: attr("show-image-detail"), content: :image_preview)]
+                ]}
+              >
+                <.image url={todo.image} :if={todo.image} style="clipShape(.rect(cornerRadius: 8))">
+                  <:success style="resizable(); scaledToFill(); frame(width: 40, height: 40)"/> 
+                  <:empty>
+                    <Rectangle style="fill(.tertiary); frame(width: 40, height: 40)" />
+                  </:empty>                                      
+                </.image>
+​
+                <VStack template="image_preview" style={[
+                  "frame(maxWidth: .infinity, maxHeight: .infinity)",
+                ]}>
+                  <Spacer/>
+                  <.image url={@image_modal_url}>
+                    <:success style={[
+                      "resizable()",
+                      "scaledToFit()"
+                    ]}/>                                       
+                  </.image>
+                  <Spacer/>
+                </VStack> 
+              </.button>
+            </HStack>
+          </Label>
+        </HStack>
+      <% end %>
+    </List>
+  <% end %>
+​
+  <NavigationStack
+    template="todo_form"
+  >
+    <.form for={@form} id="todo-form" phx-submit="save" phx-change="validate">
+      <Form style={[
+        ~s[navigationTitle("New Task")],
+        ~s[toolbarTitleDisplayMode(.inline)],
+        ~s[toolbar(content: :toolbar)]
+      ]}>
+        <ToolbarItem template="toolbar" placement="primaryAction">
+          <.button type="submit" style="buttonStyle(.automatic);">Save</.button>
+        </ToolbarItem>
+        <ToolbarItem template="toolbar" placement="cancellationAction">
+          <.button phx-click="close_form">Cancel</.button>
+        </ToolbarItem>
+​
+        <.input field={@form[:title]} type="TextField" 
+          required 
+          label="Title"
+          placeholder="Enter task title..." />
+        <.input field={@form[:description]} type="TextField" 
+          label="Description (optional)"
+          placeholder="Add some details..." />
+​
+        <VStack alignment="leading">
+          <Text style="font(.subheadline)">Image (optional)</Text>
           <HStack style={[
-            "padding(10)",
-            "background(Color(red: 0.95, green: 0.95, blue: 0.95))",
-            "clipShape(.rect(cornerRadius: 12))",
+            "frame(maxWidth: .infinity)",
+            "padding()",
+            "background(Color.gray.opacity(0.1))",
+            "clipShape(.rect(cornerRadius: 12))"
           ]}>
             <VStack>
-              <ZStack style="frame(width: 20, height: 20)" phx-click="toggle" phx-value-id={todo.id}>
-                <Circle style={[
-                  "fill(Color.gray)",
-                  "frame(width: 20, height: 20)"
-                ]}/>
-                <%= if todo.completed do %>
-                  <Circle style={[
-                    "fill(Color.green)",
-                    "frame(width: 20, height: 20)"
-                  ]}/>
-                  <.icon name="checkmark" style={[
-                    "foregroundStyle(.white)",
-                    "font(.system(size: 10))"
-                  ]}/>
-                <% else %>
-                  <Circle style={[
-                    "fill(Color.white)",
-                    "frame(width: 16, height: 16)"
-                  ]}/>
+              <PhotosPicker
+                data-phx-upload-ref={@uploads.image.ref}
+                maxSelectionCount="1"
+                name="image"
+              >
+                <Label systemImage="photo.fill" :if={Enum.empty?(@uploads.image.entries)}>Pick Photo</Label>
+              </PhotosPicker>
+              <Section phx-drop-target={@uploads.image.ref}>
+                <%= for entry <- @uploads.image.entries do %>
+                  <VStack
+                    style="swipeActions(content: :swipe_actions); listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8));"
+                    alignment="leading"
+                  >
+                    <.live_img_preview entry={entry} style="resizable();scaledToFit();clipShape(.rect(cornerRadius: 4));" />
+​
+                    <%!-- entry.progress will update automatically for in-flight entries --%>
+                    <ProgressView value={entry.progress} total="100">
+                      <%= entry.client_name %>
+                      <Text template="currentValueLabel"><%= entry.progress%>%</Text>
+                    </ProgressView>                
+​
+                    <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
+                    <.button
+                      template="swipe_actions"
+                      role="destructive"
+                      phx-click="cancel-upload"
+                      phx-value-ref={entry.ref}
+                    >
+                      <Image systemName="trash" />
+                    </.button>
+                  </VStack>
                 <% end %>
-              </ZStack>
+              </Section>                                          
             </VStack>
-            <VStack class={if todo.completed, do: "completed", else: "incomplete"} style={["padding(.leading, 8)"]}>
-              <Text style={["font(.headline)", "frame(maxWidth: .infinity, alignment: .leading);padding(.top, 8)"]}><%= todo.title %></Text>
-              <HStack>
-                <Button 
-                  :if={todo.image} 
-                  show-image-detail={!!@image_modal_url} 
-                  phx-click="open_image_detail"
-                  phx-change="close_image_detail"
-                  phx-value-url={todo.image}                  
-                  style={[
-                    ~s[sheet(isPresented: attr("show-image-detail"), content: :image_preview)]
-                  ]}>
-                  <.image url={todo.image}>
-                    <:success style="resizable();frame(width: 40, height: 40)"/>                                       
-                  </.image>
-                  <%!-- Image detail modal --%>
-                  <VStack template="image_preview" style="frame(maxWidth: .infinity, maxHeight: .infinity)">
-                    <Spacer/>
-                    <.image url={@image_modal_url}>
-                      <:success style={[
-                        "resizable()",
-                        "aspectRatio(contentMode: .fit)",
-                        "frame(maxWidth: .infinity, maxHeight: .infinity)"
-                      ]}/>                                       
-                    </.image>
-                    <Spacer/>
-                  </VStack>                    
-                </Button>
-                <VStack>
-                  <Text style={["font(.subheadline)", "foregroundStyle(.gray)"]} :if={todo.description}><%= todo.description %></Text>
-                  <Spacer/>
-                </VStack>
-                <Spacer/>
-              </HStack>
-            </VStack>
-
-            <Spacer/>
-            <.button phx-click="delete" phx-value-id={todo.id}>
-              <.icon name="trash" style="foregroundStyle(.red)"/>
-            </.button>
           </HStack>
-        <% end %>        
-      <% end %>
-    </ScrollView>
-  </VStack>
-  
-  <VStack>
-    <Spacer/>
-    <HStack style="padding(.bottom, 16);padding(.horizontal, 16)">
-      <Spacer/>
-      <ZStack 
-        style={[
-          "frame(width: 56, height: 56)",
-          "background(Color.blue)",
-          "clipShape(.circle)",
-          "shadow(radius: 4)",
-          ~s[sheet(isPresented: attr("show-form"), content: :todo_form)]
-        ]} 
-        phx-click="open_form" 
-        show-form={@show_form} 
-        phx-change="close_form">
-          <.icon name="plus" style={[
-            "font(.title2)",
-            "foregroundStyle(.white)"
-          ]}/>
-
-          
-           <%!-- New task form --%>
-          <VStack template="todo_form">
-            <Text style="font(.title);fontWeight(.bold);padding()">
-              New Task
-            </Text>
-            
-            <.form for={@form} id="todo-form" phx-submit="save" phx-change="validate">
-              <VStack style="padding()">
-                <.input field={@form[:title]} type="TextField" 
-                  required 
-                  label="Title"
-                  style="textFieldStyle(.roundedBorder)"
-                  placeholder="Enter task title..." />
-                <.input field={@form[:description]} type="TextField" 
-                  required 
-                  label="Description (optional)" 
-                  style="textFieldStyle(.roundedBorder)"
-                  placeholder="Add some details..." />
-
-                  
-                <VStack alignment="leading">
-                  <Text style="font(.subheadline)">Image (optional)</Text>
-                  <HStack style={[
-                    "frame(maxWidth: .infinity)",
-                    "padding()",
-                    "background(Color.gray.opacity(0.1))",
-                    "clipShape(.rect(cornerRadius: 12))"
-                  ]}>
-                    <VStack>
-                      <PhotosPicker
-                        data-phx-upload-ref={@uploads.image.ref}
-                        maxSelectionCount="1"
-                        name="image"
-                      >
-                        <Label systemImage="photo.fill" :if={Enum.empty?(@uploads.image.entries)}>Pick Photo</Label>
-                      </PhotosPicker>
-                      <Section phx-drop-target={@uploads.image.ref}>
-                        <%= for entry <- @uploads.image.entries do %>
-                          <VStack
-                            style="swipeActions(content: :swipe_actions); listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8));"
-                            alignment="leading"
-                          >
-                            <.live_img_preview entry={entry} style="resizable();scaledToFit();clipShape(.rect(cornerRadius: 4));" />
-
-                            <%!-- entry.progress will update automatically for in-flight entries --%>
-                            <ProgressView value={entry.progress} total="100">
-                              <%= entry.client_name %>
-                              <Text template="currentValueLabel"><%= entry.progress%>%</Text>
-                            </ProgressView>                
-
-                            <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
-                            <.button
-                              template="swipe_actions"
-                              role="destructive"
-                              phx-click="cancel-upload"
-                              phx-value-ref={entry.ref}
-                            >
-                              <Image systemName="trash" />
-                            </.button>
-                          </VStack>
-                        <% end %>
-                      </Section>                                          
-                    </VStack>
-                  </HStack>
-                </VStack> 
-                
-                <HStack>
-                  <.button phx-click="close_form" style="buttonStyle(.bordered)">
-                    <Text>Cancel</Text>
-                  </.button>
-                  
-                  <.button type="submit" style="buttonStyle(.borderedProminent)">
-                    <Text>Save</Text>
-                  </.button>
-                </HStack>
-              </VStack>
-            </.form>
-          </VStack>        
-      </ZStack>
-    </HStack>
-  </VStack>
-</ZStack>
+        </VStack>
+      </Form>
+    </.form>
+  </NavigationStack>
+</VStack>

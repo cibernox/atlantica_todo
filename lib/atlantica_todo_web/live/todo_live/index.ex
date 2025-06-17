@@ -3,8 +3,7 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
   use AtlanticaTodoNative, :live_view
   alias AtlanticaTodo.Todos.Todo
   alias AtlanticaTodo.Repo
-  alias AtlanticaTodo.PubSub
-  require Logger
+
   @topic "todos"
 
   @impl true
@@ -31,11 +30,6 @@ defmodule AtlanticaTodoWeb.TodoLive.Index do
          end
        end
      )}
-  end
-
-  @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, assign(socket, :form, new_todo_form())}
   end
 
   @impl true
